@@ -1,0 +1,61 @@
+---
+title: "IHME Data Landscaping 2022"
+#author: "Christian Hernandez (chrish47@uw.edu), Helen Ippolito (helenipp@uw.edu)"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+```{r}
+
+```
+
+# Using the Source Counts Function
+(1) Make sure you are on the cluster for this, and that have you have an R interactive session opened. Please see the HUB for more details.  
+(2) Script: "/ihme/scratch/projects/rgud/Source Counts Tool 2022/Code/Source Counts Code/source_counts_master.R"  
+    • Run this on your console: `source("/ihme/scratch/projects/rgud/Source Counts Tool 2022/Code/Source Counts Code/source_counts_master.R")`  
+    • Source counts function: `source_counts()`  
+(3) Source in your location_data. REQUIRED.   
+    • Function: `get_location_metadata()`  
+    • Most common *location_set_id: 35*  
+    • Please use the *location_data* object name.  
+(4) When using the source_counts(), please make sure your out_path filepath exists.  
+(5) For examples calls and explanations, please see the section below Title 'Example Calls'.    
+
+# Source Counts Strategy - Mechanics
+
+##### **We Can Only Count 'Sources' That Meet The Following Criteria**
+• It is a GBD project with data that comes through our sources data ingestion pipeline. We don't count custom data outside our sources database.  
+• The source data corresponds to valid NIDs that are published in the GHDx. Our source counts are all based on GHDx Record NIDs.  
+• The source counts requested can be fulfilled with the data we have in our sources database / source counts tables. Data we have in-house. 
+
+
+##### **General NID strategy Overview**
+(1) ***NID Relationships***  
+    • If a Record NID has an underlying NID, the underlying NID is used. [Ask Modelers If their pipeline have these?]  
+    • If a record NID or replaced underlying NID is a Merged Citation, we break apart the Merged Citation into its associated Record NIDs.
+(2) ***NID’s Data Type***  
+    • Every GHDx Record NID has a data type (it is required).  
+    • In some counting strategies, records are counted differently depending on data type. 
+(3) ***NID Validity***  
+    • NIDs must be valid, published, Record NIDs from the GHDx. We do not count “file” NIDs, “series or system” NIDs, aggregate NIDs, or any fake NIDs. 
+    
+##### **Source Counting Method**  
+• Source counts will be generated using the following Counting Strategy Combination  
+
+`NID + location + year_start + year_end`
+
+• The above combination strategy is applied accross all data types, including: Scientific literature, Financial record, Survey, Census, and Clinical trial. As per the      GBD strategy, these type of sources should only be counted as per NID, instead of a combination. For the Maternal Data Landscaping Project(2022), these were counted using  the above combination as with other source types, in order to adequately cover the year and location spread better. 
+
+
+[For more details on the GBD Source Counts strategy, please click here](https://hub.ihme.washington.edu/display/SCDS/Source+Counts+-+Source+Counting+Strategy)
+
+# Source Counts Code
+
+
+# Example Calls
